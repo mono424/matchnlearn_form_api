@@ -10,9 +10,7 @@ const init = async () => {
         port: process.env.PORT,
         host: 'localhost',
         routes: {
-            cors: {
-                origin: ['*'] // todo: add cors        
-            }
+            cors: true // todo: add cors
         }
     });
 

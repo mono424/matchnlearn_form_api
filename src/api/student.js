@@ -16,10 +16,14 @@ module.exports = {
             path: '/student',
             options: {
                 validate: {
+                    failAction: async (request, h, err) => {
+                        console.error(err);
+                        throw err;
+                    },
                     payload: Joi.object({ 
                         email: Joi.string().email().required(),
                         name: Joi.string().required(),
-                        phoneNumber: Joi.string().regex(/^\+[0-9\\s]+/).required(),
+                        phoneNumber: Joi.string().regex(/^\+[0-9]+/).required(),
                         goal: Joi.string().valid(...GOALS).required(),
                         faculty: Joi.string().valid(...FACULTIES).required(),
                         courses: Joi.array().min(1).items(Joi.string()).required(),
@@ -32,6 +36,7 @@ module.exports = {
                         hobbies: Joi.string(),
                         favWayOfLeanrning: Joi.string(),
                         peoplePreference: Joi.string(),
+                        comment: Joi.string(),
                         groupSize: Joi.string().valid(...GROUPSIZES).required(),
                     })
                 }

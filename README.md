@@ -6,8 +6,8 @@ Url: https://matchnlearn-form-api.herokuapp.com
 
 ## REST-Endpoints
 
-### GET /
+### GET **/**
 returns a welcome message.
 
-### POST /student
+### GET **/auth**
 Call this endpoint with an student-payload(json). The student will be pushed into the database.

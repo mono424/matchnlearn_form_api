@@ -1,7 +1,9 @@
 const Joi = require('@hapi/joi');
 const db = require('../db');
+const WhatsAppService = require('../services/WhatsApp');
 
-const GOALS = ["new_friends", "study_partners", "not_sure"];
+const confirmationMessage = ({ name }) => `**MatchNLearn Confirmation** Hey ${name}, thank you for using MatchNLearn to find a study-group.`;
+
 const FACULTIES = ["in", "wi", "mw", "ei"];
 const DEGREES = ["ba", "ma"];
 const YEARS = ["1", "2", "3", "4+"];
@@ -44,10 +46,10 @@ module.exports = {
             },
             handler: async (request, h) => {
                 const { payload } = request;
-                const res = await db.getClient().db().collection("students").insertOne(payload);
+                await db.getClient().db().collection("students").insertOne(payload);
+                WhatsAppService.sendMessage(payload.phoneNumber, confirmationMessage(payload));
                 return {
                     status: "ok",
-                    _id: res.insertedId
                 };
             }
         }

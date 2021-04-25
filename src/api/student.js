@@ -8,6 +8,9 @@ const YEARS = ["1", "2", "3", "4+"];
 const EXPERIENCES = ["easy", "alright", "difficult", "struggeling", "first_semester"];
 const ATTITUDES = ["learning_lover", "score_chaser", "efficient", "pass_prayer"];
 const GROUPSIZES = ["2", "3", "both"];
+const LANGUAGES = ["german", "english", "both"];
+const PROGRAMSCOPES = ["all", "only_my_program"];
+const PREFERENCES = ["fun", "productivity", "munich"];
 
 module.exports = {
     routes: () => [
@@ -21,10 +24,8 @@ module.exports = {
                         throw err;
                     },
                     payload: Joi.object({ 
-                        email: Joi.string().email().required(),
                         name: Joi.string().required(),
                         phoneNumber: Joi.string().regex(/^\+[0-9]+/).required(),
-                        goal: Joi.string().valid(...GOALS).required(),
                         faculty: Joi.string().valid(...FACULTIES).required(),
                         courses: Joi.array().min(1).items(Joi.string()).required(),
                         studyStatus: Joi.object({
@@ -33,11 +34,11 @@ module.exports = {
                         }),
                         prevSemesterExperience: Joi.string().valid(...EXPERIENCES).required(),
                         attitude: Joi.string().valid(...ATTITUDES).required(),
-                        hobbies: Joi.string(),
-                        favWayOfLeanrning: Joi.string(),
-                        peoplePreference: Joi.string(),
                         comment: Joi.string(),
                         groupSize: Joi.string().valid(...GROUPSIZES).required(),
+                        language: Joi.string().valid(...LANGUAGES).required(),
+                        programScope: Joi.string().valid(...PROGRAMSCOPES).required(),
+                        preferences: Joi.array().items(Joi.string().valid(...PREFERENCES)).required(),
                     })
                 }
             },

@@ -5,7 +5,8 @@ const client = axios.create({
     auth: {
         username: process.env.WHATSAPP_API_USER,
         password: process.env.WHATSAPP_API_PASS
-    }
+    },
+    timeout: 60 * 1000
 });
 
 module.exports = {

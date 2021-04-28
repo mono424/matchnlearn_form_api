@@ -48,6 +48,7 @@ module.exports = {
             handler: async (request, h) => {
                 const { payload } = request;
                 payload.courses = payload.courses.map(c => ObjectId(c));
+                payload.phoneNumber = payload.phoneNumber.replace(/\s/g, "");
                 await db.getClient().db().collection("students").insertOne(payload);
                 WhatsAppService.sendMessage(payload.phoneNumber, confirmationMessage(payload));
                 return {

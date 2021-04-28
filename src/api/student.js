@@ -1,4 +1,5 @@
 const Joi = require('@hapi/joi');
+const { ObjectId } = require('mongodb');
 const db = require('../db');
 const WhatsAppService = require('../services/WhatsApp');
 
@@ -9,7 +10,7 @@ const DEGREES = ["ba", "ma"];
 const YEARS = ["1", "2", "3", "4+"];
 const EXPERIENCES = ["easy", "alright", "difficult", "struggeling", "first_semester"];
 const ATTITUDES = ["learning_lover", "score_chaser", "efficient", "pass_prayer"];
-const GROUPSIZES = ["2", "3", "both"];
+const GROUPSIZES = ["2", "3", "3+", "dont_care"];
 const LANGUAGES = ["german", "english", "both"];
 const PROGRAMSCOPES = ["all", "only_my_program"];
 const PREFERENCES = ["fun", "productivity", "munich"];
@@ -46,6 +47,7 @@ module.exports = {
             },
             handler: async (request, h) => {
                 const { payload } = request;
+                payload.courses = payload.courses.map(c => ObjectId(c));
                 await db.getClient().db().collection("students").insertOne(payload);
                 WhatsAppService.sendMessage(payload.phoneNumber, confirmationMessage(payload));
                 return {

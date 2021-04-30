@@ -5,7 +5,7 @@ const WhatsAppService = require('../services/WhatsApp');
 
 const confirmationMessage = ({ name }) => `**MatchNLearn Confirmation** Hey ${name}, thank you for using MatchNLearn to find a study-group.`;
 
-const FACULTIES = ["in", "wi", "mw", "ei"];
+const FACULTIES = ["in", "wi", "mw", "ei", "other"];
 const DEGREES = ["ba", "ma"];
 const YEARS = ["1", "2", "3", "4+"];
 const EXPERIENCES = ["easy", "alright", "difficult", "struggeling", "first_semester"];
@@ -30,7 +30,7 @@ module.exports = {
                         name: Joi.string().required(),
                         phoneNumber: Joi.string().regex(/^\+[0-9]+/).required(),
                         faculty: Joi.string().valid(...FACULTIES).required(),
-                        courses: Joi.array().min(1).items(Joi.string()).required(),
+                        courses: Joi.array().min(1).max(4).items(Joi.string()).required(),
                         studyStatus: Joi.object({
                             degree: Joi.string().valid(...DEGREES).required(),
                             year: Joi.string().valid(...YEARS).required(),

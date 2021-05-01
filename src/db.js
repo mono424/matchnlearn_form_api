@@ -1,4 +1,4 @@
-const { MongoClient } = require("mongodb");
+const { MongoClient, Db } = require("mongodb");
 
 module.exports = {
     _client: null,
@@ -10,6 +10,14 @@ module.exports = {
      */
     getClient() {
         return this._client;
+    },
+
+        /**
+     * Returns the mongodb client
+     * @returns {Db}
+     */
+    getDb() {
+        return this._client.db();
     },
 
     async init(url) {

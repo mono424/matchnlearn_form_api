@@ -1,6 +1,7 @@
 require('dotenv').config()
 const Hapi = require('@hapi/hapi');
 const db = require('./db');
+const migration = require('./services/Migration');
 const { registerRoutes } = require('./routes');
 
 // const IS_DEVELOP = process.env.NODE_ENV === "development"; 
@@ -16,6 +17,7 @@ const init = async () => {
 
     await db.init(process.env.MONGO_URL);
     registerRoutes(server);
+    await migration.migrate();
 
     await server.start();
     console.log('Server running on %s', server.info.uri);

@@ -5,8 +5,8 @@ module.exports = {
             migrateScript: require('./group-size-from-num-to-alpha')
         },
         {
-            key: "wa-meta-phonenumber-to-studentid",
-            migrateScript: require('./wa-meta-phonenumber-to-studentid')
+            key: "ws-logs-phonenumber-to-studentid",
+            migrateScript: require('./ws-logs-phonenumber-to-studentid')
         },
         {
             key: "add-created-at-to-students",

@@ -3,8 +3,14 @@ const Hapi = require('@hapi/hapi');
 const db = require('./db');
 const migration = require('./services/Migration');
 const { registerRoutes } = require('./routes');
+const { validateGenerator } = require('./auth');
 
-// const IS_DEVELOP = process.env.NODE_ENV === "development"; 
+// const IS_DEVELOP = process.env.NODE_ENV === "development";
+
+const adminUser = {
+    username: "admin",
+    password: process.env.ADMIN_PASSWORD
+};
 
 const init = async () => {
     const server = Hapi.server({
@@ -16,8 +22,11 @@ const init = async () => {
     });
 
     await db.init(process.env.MONGO_URL);
-    registerRoutes(server);
     await migration.migrate();
+
+    await server.register(require('@hapi/basic'));
+    server.auth.strategy('simple', 'basic', { validate: validateGenerator([adminUser]) });
+    registerRoutes(server);
 
     await server.start();
     console.log('Server running on %s', server.info.uri);

@@ -2,6 +2,7 @@ const routes= [
     require('./api/index'),
     require('./api/student'),
     require('./api/courses'),
+    require('./api/export'),
 ];
 
 module.exports = {

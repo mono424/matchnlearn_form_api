@@ -10,9 +10,9 @@ const client = axios.create({
 });
 
 module.exports = {
-    sendMessage(number, message) {
+    sendMessage(studentId, message) {
         return client.post("/message", {
-            number,
+            studentId,
             message
         });
     }

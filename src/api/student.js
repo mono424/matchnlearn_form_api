@@ -49,8 +49,9 @@ module.exports = {
                 const { payload } = request;
                 payload.courses = payload.courses.map(c => ObjectId(c));
                 payload.phoneNumber = payload.phoneNumber.replace(/\s/g, "");
-                await db.getClient().db().collection("students").insertOne(payload);
-                WhatsAppService.sendMessage(payload.phoneNumber, confirmationMessage(payload));
+                payload.createdAt = new Date();
+                const result = await db.getClient().db().collection("students").insertOne(payload);
+                WhatsAppService.sendMessage(result.insertedId, confirmationMessage(payload));
                 return {
                     status: "ok",
                 };

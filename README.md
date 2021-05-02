@@ -13,4 +13,4 @@ returns a welcome message.
 Call this endpoint with an student-payload(json). The student will be pushed into the database.
 
 ### GET **/export**
-Call this endpoint with an to receive an export of the database in csv.
+Call this endpoint to receive an export of the database in csv.

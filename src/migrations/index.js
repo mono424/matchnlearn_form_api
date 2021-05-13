@@ -11,6 +11,10 @@ module.exports = {
         {
             key: "add-created-at-to-students",
             migrateScript: require('./add-created-at-to-students')
+        },
+        {
+            key: "migrate-group-participents",
+            migrateScript: require('./migrate-group-participents')
         }
     ]
 }

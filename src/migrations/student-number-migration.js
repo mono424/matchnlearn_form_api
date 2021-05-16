@@ -11,13 +11,11 @@ function fixNumber(number) {
 module.exports = async function (db) {
     const students = await db.collection('students').find().toArray();
     for (const student of students) {
-        if (!student.validWhatsAppNumber) {
-            const phoneNumber = fixNumber(student.phoneNumber);
+        const phoneNumber = fixNumber(student.phoneNumber);
             
-            await db.collection('students').updateOne(
-                { _id: student._id },
-                { $set: { phoneNumber } }
-            );
-        }
+        await db.collection('students').updateOne(
+            { _id: student._id },
+            { $set: { phoneNumber } }
+        );
     }
 };

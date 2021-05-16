@@ -17,7 +17,7 @@ module.exports = {
             migrateScript: require('./migrate-group-participents')
         },
         {
-            key: "student-number-migration",
+            key: "student-number-migration2",
             migrateScript: require('./student-number-migration')
         }
     ]
